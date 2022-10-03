@@ -2,13 +2,12 @@ from cgitb import text
 from gc import callbacks
 import logging
 from aiogram import Bot, Dispatcher, executor, types
-import os
 from aiogram.utils import executor
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
 
 
 logging.basicConfig(
-    level = logging.DEBUG,
+    level = logging.DEBUG, filemode="w",
     format = "%(asctime)s : %(levelname)s", filename = "error.log"
     
 )
@@ -47,7 +46,13 @@ async def send_welcome(message: types.Message):
     await message.answer("инлайн кнопка", reply_markup=inkb)
 
 
-
+@dp.callback_query_handler(text="www")
+async def www_call(callback: types.CallbackQuery):
+    """
+    This handler will be called when the user clicks on the button.
+    """
+    await callback.message.answer("введите сумму на которую вы хотите поплнить баланс")
+    
 
 
 if __name__ == '__main__':
